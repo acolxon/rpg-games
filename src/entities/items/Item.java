@@ -4,7 +4,7 @@ import entities.character.Character;
 
 import java.util.UUID;
 
-public abstract class Item {
+public abstract class Item implements IItem {
     private final String id;
     public String name;
     public String itemDescription;
@@ -20,10 +20,6 @@ public abstract class Item {
     public String getName() {
         return name;
     }
-
-    public abstract void useItem(Character ch);
-
-    public abstract void passiveScill(Character ch);
 
     public String getInfo() {
         String message = String.format(

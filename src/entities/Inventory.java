@@ -17,8 +17,12 @@ public class Inventory{
     }
 
     public void displayList(){
+        if(items.isEmpty()){
+            System.out.println("Инвентарь пустой");
+            return;
+        }
         for (int i = 0; i < items.size(); i++) {
-            System.out.printf("№%s.  %s %n",items.get(i).getId() , items.get(i).getName());
+            System.out.printf("%s id:%s%n", items.get(i).getName(), items.get(i).getId());
         }
     }
 

@@ -11,7 +11,9 @@ public abstract class Entity {
         this.state = state;
     }
 
-    public abstract void atackEntity(Entity entity);
+    public void atackEntity(Entity entity){
+
+    }
 
     public void listToDuel(Entity[] entities){
         for (int i = 0; i < entities.length; i++) {

@@ -1,3 +1,5 @@
+package app;
+
 import entities.character.Character;
 
 public class Gamer {

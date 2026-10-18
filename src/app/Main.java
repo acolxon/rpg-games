@@ -1,10 +1,9 @@
-import entities.Entity;
+package app;
+
 import entities.Inventory;
 import entities.State;
 import entities.character.Warrior;
 import entities.items.DamageBoostItem;
-import entities.monsters.Dragon;
-import entities.monsters.Monster;
 
 public class Main {
     public static void main(String[] args) {
