@@ -1,5 +1,6 @@
-package app;
+package cli;
 
+import app.Gamer;
 import entities.Inventory;
 import entities.State;
 import entities.character.Warrior;
@@ -8,10 +9,7 @@ import entities.monsters.Dragon;
 
 import java.util.Scanner;
 
-/**
- * Консольный интерфейс для игры.
- * Запускать нужно этот класс (у него свой main), Main остаётся как был.
- */
+
 public class GameCli {
     private static final Scanner scanner = new Scanner(System.in);
 
