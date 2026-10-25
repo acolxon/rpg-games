@@ -9,17 +9,20 @@ public abstract class Entity {
     private float health;
     private State state;
     protected final EventBus bus;
+    private Position position;
 
     public Entity(
             String name,
             float health,
             State state,
-            EventBus bus
+            EventBus bus,
+            Position position
     ){
         this.name = name;
         this.health = Math.max(0, health);
         this.state = state;
         this.bus = bus;
+        this.position = position;
     }
 
     public abstract void attackEntity(Entity entity);

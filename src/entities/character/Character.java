@@ -5,6 +5,7 @@ import entities.main.Entity;
 import entities.inventory.Inventory;
 import entities.State;
 import entities.TypeDamage;
+import entities.main.Position;
 import events.EventBus;
 import events.GameEvent;
 
@@ -14,8 +15,8 @@ public class Character extends Entity {
     private TypeDamage typeDamage;
     private float additionalDamage;
 
-    public Character(String name, float health, State state, EventBus bus, Inventory inventory, float additionalDamage, TypeDamage typeDamage){
-        super(name, health, state, bus);
+    public Character(String name, float health, State state, EventBus bus, Position position, Inventory inventory, float additionalDamage, TypeDamage typeDamage){
+        super(name, health, state, bus, position);
         this.inventory = inventory;
         this.additionalDamage = Math.max(0, additionalDamage);
         this.typeDamage = typeDamage;

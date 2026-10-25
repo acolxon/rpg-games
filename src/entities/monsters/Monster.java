@@ -3,6 +3,7 @@ package entities.monsters;
 import entities.State;
 import entities.TypeDamage;
 import entities.main.Entity;
+import entities.main.Position;
 import events.EventBus;
 
 public abstract class Monster extends Entity {
@@ -10,9 +11,9 @@ public abstract class Monster extends Entity {
     private float additionalDamage;
     private TypeDamage typeDamage;
 
-    public Monster(String name, float health, State state, EventBus bus,
+    public Monster(String name, float health, State state, EventBus bus, Position position,
                    float basicDamage, float additionalDamage, TypeDamage typeDamage) {
-        super(name, health, state, bus);
+        super(name, health, state, bus, position);
         this.basicDamage = Math.max(0, basicDamage);
         this.additionalDamage = Math.max(0, additionalDamage);
         this.typeDamage = typeDamage;
