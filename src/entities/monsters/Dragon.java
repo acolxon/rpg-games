@@ -1,24 +1,13 @@
 package entities.monsters;
 
-import entities.Entity;
 import entities.State;
+import entities.TypeDamage;
+import events.EventBus;
 
-public class Dragon extends Monster{
-    float basicDamage = 100.0f;
+public class Dragon extends Monster {
     final String type = "Dragon";
 
-    public Dragon(String name, float health, State state) {
-        super(name, health, state);
-    }
-
-    @Override
-    public void atackEntity(Entity entity) {
-        entity.setHealth(entity.getHealth()-this.basicDamage);
-    }
-
-    @Override
-    public void info() {
-        super.info();
-        System.out.printf("Тип: %s %n", this.type);
+    public Dragon(String name, float health, State state, EventBus bus) {
+        super(name, health, state, bus, 100.0f, 0.0f, TypeDamage.mage_damage);
     }
 }

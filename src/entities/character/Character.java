@@ -1,10 +1,12 @@
 package entities.character;
 
-import entities.Entity;
-import entities.Inventory;
+import entities.items.Item;
+import entities.main.Entity;
+import entities.inventory.Inventory;
 import entities.State;
 import entities.TypeDamage;
-import entities.items.Item;
+import events.EventBus;
+import events.GameEvent;
 
 public class Character extends Entity {
     private Inventory inventory;
@@ -12,42 +14,28 @@ public class Character extends Entity {
     private TypeDamage typeDamage;
     private float additionalDamage;
 
-    public Character(String name, float health, State state, Inventory inventory,float additionalDamage, TypeDamage typeDamage){
-        super(name, health, state);
+    public Character(String name, float health, State state, EventBus bus, Inventory inventory, float additionalDamage, TypeDamage typeDamage){
+        super(name, health, state, bus);
         this.inventory = inventory;
         this.additionalDamage = Math.max(0, additionalDamage);
         this.typeDamage = typeDamage;
     }
 
     public void useItemFromInventory(int number){
-        this.inventory.getItem(number).useItem(this);
-        this.inventory.deleteItem(number);
-    }
-
-    public void openInventory(){
-        this.inventory.displayList();
-    }
-
-    @Override
-    public void info() {
-        super.info();
-        System.out.printf(" Базовый урон: %f%n Дополнительный урон: %f%n Тип урона: %s%n", basicDamage, additionalDamage, typeDamage);
+        Item item = inventory.getItem(number);
+        item.useItem(this);
+        inventory.deleteItem(number);
+        bus.publish(new GameEvent.ItemUsed(getName(), item.getName()));
     }
 
     @Override
-    public void atackEntity(Entity entity) {
-        if (entity.getState() == State.dead) {
-            System.out.printf("%s атаковать нельзя, он уже мёртв %n", entity.getName());
-            return;
-        }
+    public void attackEntity(Entity entity) {
+        dealDamageTo(entity, basicDamage + additionalDamage);
+    }
 
-        System.out.printf("%s Атаковал %s%n",super.getName(), entity.getName());
-        entity.setHealth(entity.getHealth() - (basicDamage + additionalDamage));
-
-        if (entity.getHealth() <= 0.0) {
-            entity.setState(State.dead);
-//            System.out.printf("%s Умер!!! %n", entity.getName());
-        }
+    public void challengeToDuel(Entity entity){
+        super.setState(State.inBattle);
+        entity.setState(State.inBattle);
     }
 
     public float getAdditionalDamage() {

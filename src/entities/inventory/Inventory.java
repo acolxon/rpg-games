@@ -1,4 +1,4 @@
-package entities;
+package entities.inventory;
 
 import entities.items.Item;
 import java.util.ArrayList;
