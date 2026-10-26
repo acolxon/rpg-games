@@ -14,6 +14,7 @@ public class Character extends Entity {
     private float basicDamage = 20.0f;
     private TypeDamage typeDamage;
     private float additionalDamage;
+    private float attackRange = 3.0f;
 
     public Character(String name, float health, State state, EventBus bus, Position position, Inventory inventory, float additionalDamage, TypeDamage typeDamage){
         super(name, health, state, bus, position);
@@ -31,7 +32,11 @@ public class Character extends Entity {
 
     @Override
     public void attackEntity(Entity entity) {
-        dealDamageTo(entity, basicDamage + additionalDamage);
+        float distance = position.distanceTo(entity.getPosition());
+
+        if(distance <= attackRange){
+            dealDamageTo(entity, basicDamage + additionalDamage);
+        }
     }
 
     public void challengeToDuel(Entity entity){

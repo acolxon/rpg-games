@@ -9,7 +9,10 @@ public abstract class Entity {
     private float health;
     private State state;
     protected final EventBus bus;
-    private Position position;
+    protected Position position;
+
+    protected float speed;
+    protected Position target;
 
     public Entity(
             String name,
@@ -39,6 +42,22 @@ public abstract class Entity {
         bus.publish(new GameEvent.Death(this.name));
     }
 
+    public void update(float dt){
+        if (state == State.dead || target == null) return;
+
+        float distance = position.distanceTo(target);
+        float step = dt * speed;
+
+        if (distance <= step){
+            position = target;
+            target = null;
+            return;
+        }
+
+        Position direction = target.minus(position).normalized();
+        position = position.plus(direction.times(step));
+    }
+
     public String getName() {
         return name;
     }
@@ -64,5 +83,29 @@ public abstract class Entity {
 
     public State getState(){
         return this.state;
+    }
+
+    public Position getPosition() {
+        return position;
+    }
+
+    public void setPosition(Position position) {
+        this.position = position;
+    }
+
+    public void setSpeed(float speed) {
+        this.speed = speed;
+    }
+
+    public float getSpeed() {
+        return speed;
+    }
+
+    public Position getTarget() {
+        return target;
+    }
+
+    public void setTarget(Position target) {
+        this.target = target;
     }
 }
